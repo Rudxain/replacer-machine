@@ -1,0 +1,12 @@
+# input format:
+# big-endian binary numerals
+# each with a "|" cursor after LSB.
+# i.e. matches regex:
+# ([01]+\|[^01])*
+
+# add 1 and halt
+0|=1
+# carry
+1|=|0
+# resize on overflow
+|=1

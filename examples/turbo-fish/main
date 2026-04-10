@@ -1,0 +1,4 @@
+# move 🐟 to the right if free space
+::<> = ::<>
+# stop moving on collision
+::<>=  <>
