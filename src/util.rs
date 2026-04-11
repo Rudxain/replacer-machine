@@ -40,18 +40,34 @@ fn replace_all<T: Clone + Eq>(s: &mut Vec<T>, pat: &[T], repl: &[T]) -> bool {
 	is_match
 }
 
+#[derive(Debug, Copy, Clone)]
+pub enum ReplKind {
+	All,
+	First,
+	Last,
+}
+
+#[derive(Debug, Copy, Clone)]
+pub struct Op<'a, T> {
+	/// print memory to stdout
+	dump: bool,
+	repl_ty: ReplKind,
+	/// map entry
+	rule: (&'a [T], &'a [T]),
+}
+
 #[derive(Debug, Clone)]
 pub struct Machine<'o, 'i, T> {
 	/// instruction pointer
 	i: usize,
 	/// program instructions
-	map: &'o [(&'i [T], &'i [T])],
+	ops: &'o [Op<'i, T>],
 	/// "turing tape"
 	s: Vec<T>,
 }
 impl<'o, 'i, T> Machine<'o, 'i, T> {
-	pub const fn new(map: &'o [(&'i [T], &'i [T])], s: Vec<T>) -> Self {
-		Self { i: 0, map, s }
+	pub const fn new(ops: &'o [Op<'i, T>], s: Vec<T>) -> Self {
+		Self { i: 0, ops, s }
 	}
 }
 
@@ -59,7 +75,7 @@ impl<T: Clone + Eq> Machine<'_, '_, T> {
 	/// poor person's lending Iterator
 	pub fn next(&mut self) -> Option<&[T]> {
 		loop {
-			let (pat, repl) = self.map.get(self.i)?;
+			let (pat, repl) = self.ops.get(self.i)?;
 			if replace_all(&mut self.s, pat, repl) {
 				self.i = 0;
 				return Some(&self.s);
