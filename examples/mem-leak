@@ -1,2 +1,5 @@
 # WARN: exponential growth!
-=malloc certified
+@=malloc certified
+
+# linear growth variant
+#<=malloc certified
