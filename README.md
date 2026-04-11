@@ -8,6 +8,8 @@ The program is an ordered list of rules. Each rule maps a constant substring (th
 
 Notice that I said *"match"* not *"change"*. A rule can match even if it doesn't change the tape.
 
+I'm working on allowing the program to specify which replacements to print, and which occurrences to replace. `<` to replace-first, `>` to replace-last, `@` to replace-all.
+
 ## Implications
 Notice that *duplicate patterns can change the behavior* of a machine, so they are not "keys" in a map. However, if 2 or more consecutive rules match the same pattern, only the 1st one in that chain can have an effect, all further dupes in the chain are essentially unreachable.
 

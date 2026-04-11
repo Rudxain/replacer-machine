@@ -5,8 +5,12 @@
 # ([01]+\|[^01])*
 
 # add 1 and halt
-0|=1
+.@0|=1
 # carry
-1|=|0
+@1|=|0
 # resize on overflow
-|=1
+.@|=1
+
+# prepend `.` to the "carry" rule, to notice
+# some numerals are ignored depending on the state
+# of other numerals
