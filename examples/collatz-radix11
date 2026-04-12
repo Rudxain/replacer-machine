@@ -1,0 +1,30 @@
+# input must match regex `[01]+/,`
+
+# delete trailing zero (÷2)
+>0/=/
+
+# enter copy mode, to prepare for ×3
+>1/=1c
+
+# begin copy to the right.
+>0c=0q>_
+>1c=1q>|
+# "q" means "queued" to me;
+# I could re-use the "c",
+# but then I'd have to move some rules.
+
+# continue moving
+>>_0=0>_
+>>_1=1>_
+>>|0=0>|
+>>|1=1>|
+>>_,=,>_
+>>|,=,>|
+
+# end of 2nd operand
+>>_=<0
+>>|=<1
+
+>0<=<0
+>1<=<1
+>,<=<,
